@@ -1,4 +1,3 @@
-# WiSe2021_Padi11
 # Siedler von Catan Spiel
 
 
