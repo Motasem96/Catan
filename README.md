@@ -1,6 +1,18 @@
 # WiSe2021_Padi11
 # Siedler von Catan Spiel
-# Alternative Idee: Schach
+
+
+![alt text](https://github.com/Motasem96/Catan/blob/dev/Catan_Captures/1.PNG?raw=true)
+
+![alt text](https://github.com/Motasem96/Catan/blob/dev/Catan_Captures/2.PNG?raw=true)
+
+![alt text](https://github.com/Motasem96/Catan/blob/dev/Catan_Captures/2_1.PNG?raw=true)
+
+![alt text](https://github.com/Motasem96/Catan/blob/dev/Catan_Captures/2_2.PNG?raw=true)
+
+![alt text](https://github.com/Motasem96/Catan/blob/dev/Catan_Captures/3.PNG?raw=true)
+
+
 ## Ziel
 ### Muss:
     - 2D Implementierung von den grundlegenden Funktionen von dem Brettspiel, nach den Regeln die unten in Details beschrieben sind.
