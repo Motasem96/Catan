@@ -7,6 +7,10 @@
 #include "GameData.hpp"
 #include <iostream>
 #include <thread>
+#include <functional>
+#include <sstream>
+#include <Windows.h>
+#include <stdexcept>
 
 namespace Catan {
     typedef std::shared_ptr<GameData> GameDataRef;
@@ -22,6 +26,8 @@ namespace Catan {
 
         void Init();
         void Run();
+        void runActionMachine();
+        void initGameDataVars();
     };
 }
 #endif

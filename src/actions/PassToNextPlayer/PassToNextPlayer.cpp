@@ -3,7 +3,11 @@
 namespace Catan {
     std::vector<int> arr;
     PassToNextPlayer::PassToNextPlayer(GameDataRef data) : _data(data) {
-        this->_data->_dynamicSprites->clear();
+        this->_data->_playerOptions->clear();
+        this->_data->_dynamicSpritesDices->clear();
+        /*if(this->_data->_playerNumers == 1) {
+            arr.push_back(1);
+        } else*/ 
         if (this->_data->_playerNumers == 3) {
             arr.push_back(1);
             arr.push_back(2);
@@ -28,7 +32,6 @@ namespace Catan {
             arr.push_back(4);
         }
 
-
         for(int i = 0; i < arr.size(); i++) {
             if(this->_data->currentPlayerId == arr[i]) {
                 if( i + 1 < arr.size()) {
@@ -45,11 +48,19 @@ namespace Catan {
     void PassToNextPlayer::Init() {        
     }
 
+    
+    int PassToNextPlayer::getId() {
+        return this->id;
+    }
 
     void PassToNextPlayer::Run() {
+        this->_data->syncData->g_myDataMutex.lock();
         Sleep(1000);
         this->_data->currentPlayerId = nextPlayer;
         this->_data->currentPlayer = this->_data->_players[this->nextPlayer];
-        this->_data->_dynamicSprites->clear();
+        this->_data->_dynamicSpritesDices->clear();
+        this->_data->_playerOptions->clear();
+        this->_data->currentPlayer->playing = false;
+        this->_data->syncData->g_myDataMutex.unlock();
     }
 }

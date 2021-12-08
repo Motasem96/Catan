@@ -29,6 +29,10 @@ namespace Catan {
     Button::~Button() {
 
     }
+    
+    std::string Button::getText() {
+        return this->text.getString();
+    }
 
     const bool Button::isPressed() const {
         return (this->buttonState == BTN_PRESSED);
@@ -37,6 +41,10 @@ namespace Catan {
     void Button::render(sf::RenderWindow *target) {
         target->draw(this->shape);
         target->draw(this->text);
+    }
+
+    void Button::setText(std::string text) {
+        this->text.setString(text);
     }
 
     void Button::update(const sf::Vector2f mousPos) {
@@ -77,5 +85,9 @@ namespace Catan {
             this->shape.setFillColor(sf::Color::Red);
             break;
         }
+    }
+
+    sf::Vector2f Button::getPos() {
+        return this->shape.getPosition();
     }
 }

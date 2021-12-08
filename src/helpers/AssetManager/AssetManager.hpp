@@ -8,6 +8,7 @@
 #include <map>
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include "../../types/ProbabilityLevel.hpp"
 
@@ -16,6 +17,7 @@ namespace Catan {
     private:
         std::map<std::string, sf::Texture> _textures;
         std::map<std::string, sf::Font> _fonts;
+        std::map<std::string, sf::Music> _sounds;
         std::unordered_map<std::string, std::pair<int, ProbabilityLevel>> chipsInfoWithoutExtension = std::unordered_map<std::string, std::pair<int, ProbabilityLevel>>();
         std::unordered_map<std::string, std::pair<int, ProbabilityLevel>> chipsInfoWithExtension = std::unordered_map<std::string, std::pair<int, ProbabilityLevel>>();
 
@@ -24,9 +26,11 @@ namespace Catan {
         ~AssetManager() {};
         void LoadTexture(std::string name, std::string fileName);
         void LoadFont(std::string name, std::string fileName);
+        void LoadAudio(std::string name, std::string fileName);
 
         sf::Texture& GetTexture(std::string name);
         sf::Font& GetFont(std::string name);
+        sf::Music& GetAudio(std::string name);
 
         std::unordered_map<std::string, std::pair<int, ProbabilityLevel>> getChipsInfoWithoutExtension();
         std::unordered_map<std::string, std::pair<int, ProbabilityLevel>> getChipsInfoWithExtension();

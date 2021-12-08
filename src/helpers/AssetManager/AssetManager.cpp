@@ -26,7 +26,7 @@ namespace Catan {
     void AssetManager::LoadTexture(std::string name, std::string fileName) {
         sf::Texture texture;
         if(!texture.loadFromFile(fileName)) {
-            std::cout << "Failed to load texture " + name + "from " + fileName << std::endl;
+            std::cout << "Failed to load texture " + name + " from " + fileName << std::endl;
         } else {
             this->_textures[name] = texture;
         }
@@ -37,10 +37,20 @@ namespace Catan {
         sf::Font font;
 
         if(!font.loadFromFile(fileName)) {
-            std::cout << "Failed to load font " + name + "from " + fileName << std::endl;
+            std::cout << "Failed to load font " + name + " from " + fileName << std::endl;
         } else {
             this->_fonts[name] = font;
         }
+    }
+
+    void AssetManager::LoadAudio(std::string name, std::string fileName) {
+            
+        this->_sounds[name].openFromFile(fileName);
+
+    }
+
+    sf::Music& AssetManager::GetAudio(std::string name) {
+        return this->_sounds[name];
     }
 
     void AssetManager::initializeChipsInfoWithoutExtension() {

@@ -2,7 +2,7 @@
 #include <iostream>
 
 namespace Catan {
-    ActionMachine::ActionMachine() {
+    ActionMachine::ActionMachine(std::shared_ptr<GameSyncData> syncData) : _syncData(syncData) {
         this->_actions = std::queue<ActionRef>();
     }
     
@@ -28,14 +28,29 @@ namespace Catan {
         return this->_actions.empty();
     }
 
-    void ActionMachine::ProcessActionChanges() {
-        if(this->_isRemoving && !this->_actions.empty()) {
+    void ActionMachine::deleteAllActions() {
+        this->_syncData->g_myDataMutex.lock();
+        while (!this->_actions.empty()) {
             this->_actions.pop();
-            if(!this->_actions.empty()) {
+        }
+        
+        this->_syncData->g_myDataMutex.unlock();
+    }
+
+    void ActionMachine::ProcessActionChanges() {
+        this->_syncData->g_myDataMutex.lock();
+
+        // std::cout << " I am In  Processing function from Thread " << std::this_thread::get_id() << std::endl;
+
+        if(this->_isRemoving && !this->_actions.empty()) {
+        this->_actions.pop();
+        if(!this->_actions.empty()) {
+            if(this->_actions.front() != nullptr) {
                 this->_actions.front()->Resume();
             }
+        }
 
-            this->_isRemoving = false;
+        this->_isRemoving = false;
         }
 
         if(this->_isAdding) {
@@ -43,13 +58,18 @@ namespace Catan {
                 if(this->_isReplacing) {
                     this->_actions.pop();
                 } else {
-                    this->_actions.front()->Pause();
+                    if(this->_actions.front() != nullptr) {
+                        this->_actions.front()->Pause();
+                    }
                 }
             } 
             this->_actions.push(std::move(this->_newAction));
-            this->_actions.front()->Init();
+            if(this->_actions.front() != nullptr) {
+                this->_actions.front()->Init();
+            }
             this->_isAdding = false;
             
         }
+        this->_syncData->g_myDataMutex.unlock();
     }
 }

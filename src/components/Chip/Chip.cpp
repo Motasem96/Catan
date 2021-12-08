@@ -4,18 +4,18 @@ namespace Catan {
     /* Constructor with the number, charachter, probabilityLevel Informations
     *  load font
     */
-    Chip::Chip(GameDataRef data, int number, std::string str, ProbabilityLevel probabilityLevel) : _data(data){
+    Chip::Chip(std::shared_ptr<GameAssetsData> assetsData, int number, std::string str, ProbabilityLevel probabilityLevel) : _assetsData(assetsData){
         this->number = number;
         this->chipText = str;
         this->probabilityLevel = probabilityLevel;
-        this->text.setFont(this->_data->assetsData->_assets.GetFont("Catan Font"));
+        this->text.setFont(this->_assetsData->_assets.GetFont("Catan Font"));
     }
 
     /* Constructor without args
     *  load font
     */
-    Chip::Chip(GameDataRef data) : _data(data) {
-        this->text.setFont(this->_data->assetsData->_assets.GetFont("Catan Font"));
+    Chip::Chip(std::shared_ptr<GameAssetsData> assetsData) : _assetsData(assetsData) {
+        this->text.setFont(this->_assetsData->_assets.GetFont("Catan Font"));
     }
 
     // Destructor
@@ -96,12 +96,12 @@ namespace Catan {
     void Chip::showChipNumber() {
         this->text.setString(std::to_string(this->getChipNumber()));
         this->text.setPosition(this->circle.getPosition() + sf::Vector2f(this->circle.getRadius()/2, this->circle.getRadius()/2));
-        this->text.setFont(this->_data->assetsData->_assets.GetFont("Catan Font"));
+        this->text.setFont(this->_assetsData->_assets.GetFont("Catan Font"));
     }
 
     void Chip::showChipText() {
         this->text.setString(this->getChipText());
-        this->text.setFont(this->_data->assetsData->_assets.GetFont("Catan Font"));
+        this->text.setFont(this->_assetsData->_assets.GetFont("Catan Font"));
         this->text.setPosition({ (float) (this->circle.getPosition().x + this->circle.getGlobalBounds().width/2 - this->text.getGlobalBounds().width/2),
         (float)(this->circle.getPosition().y + this->circle.getGlobalBounds().height/2 - this->text.getGlobalBounds().height/2)});
     }

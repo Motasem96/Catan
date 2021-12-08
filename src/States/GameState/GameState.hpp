@@ -22,12 +22,18 @@
 #include <Windows.h>
 #include <chrono>
 #include "../../actions/ShowDiceRolls/ShowDiceRolls.hpp"
+#include "../../actions/ShowRollDiceButton/ShowRollDiceButton.hpp"
 #include "../../actions/ShowPlayerOptions/ShowPlayerOptions.hpp"
-#include "../../actions/ChooseSprite/ChooseSprite.hpp"
+#include "../../actions/PlayerChooseGameFigure/PlayerChooseGameFigure.hpp"
 #include "../../actions/PassToNextPlayer/PassToNextPlayer.hpp"
 #include "../../actions/ActionMachine/ActionMachine.hpp"
+#include "../../actions/ShowAndBuildSettelment/ShowAndBuildSettelment.hpp"
+#include "../../States/ExchangeCardsState/ExchangeCardsState.hpp"
 #include <iostream>
 #include <thread>
+#include "FieldBuildHelper.hpp"
+#include "../../components/PhotoWithDescription/PhotoWithDescription.hpp"
+#include "../../States/GameEndState/GameEndState.hpp"
 
 namespace Catan {
     class GameState : public State {
@@ -35,14 +41,11 @@ namespace Catan {
         GameDataRef _data;
         sf::Clock _clock;
         sf::Sprite _background;
-        float fieldSideLength;
-        int centerFieldsNum;
-        sf::Vector2f center;
-        std::vector<Chip> chips;
-        std::map<std::string, Display*> _displays;
-        std::map<std::string, Button*> _buttons;
-        std::map<std::pair<float, float> , bool> corners;
-
+        sf::Sprite _goBackButton;
+        std::map<std::string, std::shared_ptr<Display>> _displays;
+        std::unique_ptr<FieldBuildHelper> _fieldBuildingHelper;
+        std::map<std::string, std::shared_ptr<Button>> _buttons;
+        bool paused = false;
 
     public:
         GameState(GameDataRef data, int centerFieldsNum = 6);
@@ -56,30 +59,16 @@ namespace Catan {
         void Update(float dt);
         void ExecuteActions();
         void getRightSpritesColor();
+        bool isPaused();
+        void Pause();
+        void Resume();
 
         void runTurn();
 
         void bindEventsToFunctions();
         void bindMouseEventsToFunctions();
-
-
-        void createFields();
-        void createChips();
-
-        void createFieldObjects();
-        float getCenterToSideDistance();
-        float getFieldSideLength();
         
-        void initializeCorners();
         void placePlayers();
-
-        void leightUpAvailableCorners();
-        bool circleAlreadyExists(sf::CircleShape circle);
-        void setFieldSideLength(float length);
-
-        void giveFieldsRightIds();
-
-        bool sortingCriteria(Field* field1P, Field* field2P);
     };
 }
 

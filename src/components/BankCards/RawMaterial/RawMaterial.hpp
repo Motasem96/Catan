@@ -7,15 +7,18 @@
 
 #include "../../../types/RawMaterialType.hpp"
 
-class RawMaterial {
-protected:
-    /* data */
-    RawMaterialType type;
+namespace Catan  {
+    class RawMaterial {
+    protected:
+        /* data */
+        RawMaterialType type;
 
-public:
-    RawMaterial(RawMaterialType type);
-    ~RawMaterial();
-    void setRawMaterialType(RawMaterialType type);
-    RawMaterialType getRawMaterialType();
-};
+    public:
+        RawMaterial();
+        RawMaterial(RawMaterialType type);
+        ~RawMaterial();
+        void setRawMaterialType(RawMaterialType type);
+        RawMaterialType getRawMaterialType();
+    };
+}
 #endif

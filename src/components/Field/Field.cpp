@@ -9,9 +9,11 @@ namespace Catan {
     
 /************************** Constructor and Destructor **************************/
 
-    Field::Field(GameAssetsData* assetsData, FieldType type) : _assetsData(assetsData) {
+    Field::Field(std::shared_ptr<GameAssetsData> assetsData, FieldType type) : _assetsData(assetsData) {
         this->type = type;
         this->setSideLength();
+        this->_fieldCornersIds = std::make_shared<std::vector<int>>();
+        this->_chip = std::make_shared<Chip>(this->_assetsData);
     }
 
     Field::~Field() {}
@@ -38,6 +40,22 @@ namespace Catan {
 
     float Field::getSideLength() {
         return this->sideLength;
+    }
+    
+    void Field::setChip(std::shared_ptr<Chip> chip) {
+        this->_chip = chip;
+    }
+
+    std::shared_ptr<Chip> Field::getChip() {
+        return this->_chip;
+    }
+
+    void Field::addCornerIdToField(int cornerId) {
+        this->_fieldCornersIds->push_back(cornerId);
+    }
+
+    std::shared_ptr<std::vector<int>> Field::getFieldCornersIds() {
+        return this->_fieldCornersIds;
     }
 
     sf::Texture* Field::getTexture() {
@@ -90,6 +108,56 @@ namespace Catan {
         this->fieldId = id;
     }
 
+    RawMaterial Field::getRawMaterial() {
+        RawMaterial rawMaterial = RawMaterial(Holz);
+        switch (this->getFieldType()) {
+            case WaldField: {
+                rawMaterial.setRawMaterialType(Holz);
+                break;
+            }
+            case GetreideField:{
+                rawMaterial.setRawMaterialType(Getreide);
+                break;
+            }
+            case SchafField: {
+                rawMaterial.setRawMaterialType(Schaf);
+                break;
+            }
+            case LehmField: {
+                rawMaterial.setRawMaterialType(Lehm);
+                break;
+            }
+            
+            case SteinField: {
+                rawMaterial.setRawMaterialType(Stein);
+                break;
+            }
+            
+            default:
+                break;
+        }
+        return rawMaterial;
+    }
+
+
+    
+    std::shared_ptr<Raeuber> Field::getRauber() {
+        return this->_raeuber;
+    }
+
+    void Field::setRauber(std::shared_ptr<Raeuber> raeuber) {
+        this->_raeuber = raeuber;
+        this->suttleRaeuber();
+    }
+    
+    void Field::suttleRaeuber() {
+        this->hasRaeuber = true;
+    }
+
+    void Field::removeRaeuber() {
+        this->hasRaeuber = false;
+    }
+
     // Determine coordinates of the convex vertices
 
     void Field::determineConvexVertecies() {
@@ -108,6 +176,10 @@ namespace Catan {
         this->convex.setTexture(this->getTexture());
         this->convex.rotate(30.0f);
         this->convex.setPosition(this->center.x, this->center.y);
+    }
+
+    bool Field::doesHaveRaeuber() {
+        return this->hasRaeuber;
     }
 }
 

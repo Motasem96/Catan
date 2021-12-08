@@ -10,12 +10,15 @@ namespace Catan {
     private:
         GameDataRef _data;
         int nextPlayer;
+        int id = 3;
+        
     public:
         PassToNextPlayer(GameDataRef data);
         ~PassToNextPlayer();
 
         void Init();
         void Run();
+        int getId();
     };
 }
 

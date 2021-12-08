@@ -10,7 +10,7 @@
 #include <SFML/Window.hpp>
 #include <iostream>
 #include "../../../config/config.hpp"
-#include "../../Game/Game.hpp"
+#include "../../Game/GameAssetsData.hpp"
 
 namespace Catan {
     class Chip {
@@ -34,12 +34,12 @@ namespace Catan {
         // The drawable Text which is provided by sfml to present the number or the String Text on the Sides of the Chip
         sf::Text text;
 
-        GameDataRef _data;
+        std::shared_ptr<GameAssetsData> _assetsData;
 
     public:
         // Constructors
-        Chip(GameDataRef data, int number, std::string str, ProbabilityLevel probabilityLevel);
-        Chip(GameDataRef data);
+        Chip(std::shared_ptr<GameAssetsData> assetsData, int number, std::string str, ProbabilityLevel probabilityLevel);
+        Chip(std::shared_ptr<GameAssetsData> assetsData);
 
         // Destructor
         ~Chip();

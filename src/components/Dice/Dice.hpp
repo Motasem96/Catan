@@ -8,13 +8,15 @@
 #include <chrono>
 #include <random>
 
-class Dice {
+namespace Catan {
+    class Dice {
 
-protected:
-    /* data */
-public:
-    Dice(/* args */);
-    ~Dice();
-    int roll();
-};
+    protected:
+        /* data */
+    public:
+        Dice(/* args */);
+        ~Dice();
+        int roll();
+    };
+}
 #endif

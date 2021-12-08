@@ -8,8 +8,12 @@ namespace Catan {
 
     void ShowDiceRolls::Init() {}
 
+    int ShowDiceRolls::getId() {
+        return this->id;
+    }
+
     void ShowDiceRolls::Run() {
-        sf::Sprite* sprite = new sf::Sprite();
+        std::shared_ptr<sf::Sprite> sprite = std::make_shared<sf::Sprite>();
         sprite->setScale({0.5f, 0.5f});
         if(count == 1) {
             sprite->setPosition({this->_data->currentPlayer->getPosition().x - 30.f,
@@ -22,32 +26,32 @@ namespace Catan {
         switch (num) {
         case 1: {
                 sprite->setTexture(this->_data->assetsData->_assets.GetTexture(DICE_SIDE_ONE));
-                (*(this->_data->_dynamicSprites))[DICE_SIDE_ONE].push_back(sprite);
+                (*(this->_data->_dynamicSpritesDices))[DICE_SIDE_ONE].push_back(sprite);
             }
             break;
         case 2: {
                 sprite->setTexture(this->_data->assetsData->_assets.GetTexture(DICE_SIDE_TWO));
-                (*(this->_data->_dynamicSprites))[DICE_SIDE_TWO].push_back(sprite);
+                (*(this->_data->_dynamicSpritesDices))[DICE_SIDE_TWO].push_back(sprite);
             }
             break;
         case 3: {
                 sprite->setTexture(this->_data->assetsData->_assets.GetTexture(DICE_SIDE_THREE));
-                (*(this->_data->_dynamicSprites))[DICE_SIDE_THREE].push_back(sprite);
+                (*(this->_data->_dynamicSpritesDices))[DICE_SIDE_THREE].push_back(sprite);
             }
             break;
         case 4: {
                 sprite->setTexture(this->_data->assetsData->_assets.GetTexture(DICE_SIDE_FOUR));
-                (*(this->_data->_dynamicSprites))[DICE_SIDE_FOUR].push_back(sprite);
+                (*(this->_data->_dynamicSpritesDices))[DICE_SIDE_FOUR].push_back(sprite);
             }
             break;
         case 5: {
                 sprite->setTexture(this->_data->assetsData->_assets.GetTexture(DICE_SIDE_FIVE));
-                (*(this->_data->_dynamicSprites))[DICE_SIDE_FIVE].push_back(sprite);
+                (*(this->_data->_dynamicSpritesDices))[DICE_SIDE_FIVE].push_back(sprite);
             }
             break;
         case 6: {
                 sprite->setTexture(this->_data->assetsData->_assets.GetTexture(DICE_SIDE_SIX));
-                (*(this->_data->_dynamicSprites))[DICE_SIDE_SIX].push_back(sprite);
+                (*(this->_data->_dynamicSpritesDices))[DICE_SIDE_SIX].push_back(sprite);
             }
             break;
         

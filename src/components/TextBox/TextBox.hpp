@@ -21,7 +21,7 @@ namespace Catan {
     public:
         TextBox(){};
         TextBox(int zize, sf::Color color, bool selected);
-        ~TextBox();
+        ~TextBox() {};
         void setFont(sf::Font &font);
         void setPosition(sf::Vector2f position);
         void setLimit(bool ToF);

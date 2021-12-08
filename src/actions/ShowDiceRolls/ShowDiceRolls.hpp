@@ -6,6 +6,7 @@
 #include <memory>
 #include <map>
 #include <string>
+#include "../../States/ExchangeCardsState/ExchangeCardsState.hpp"
 
 namespace Catan {
     class ShowDiceRolls : public FunAction {
@@ -13,11 +14,14 @@ namespace Catan {
         GameDataRef _data;
         unsigned int num;
         int count;
+        int id = 7;
+
     public:
         ShowDiceRolls(GameDataRef data, unsigned int num, int count);
-        ~ShowDiceRolls();
+        ~ShowDiceRolls() {};
         void Init();
         void Run();
+        int getId();
     };
 }
 

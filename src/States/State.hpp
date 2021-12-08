@@ -23,10 +23,12 @@ namespace Catan {
         virtual void Update(float dt) = 0;
         virtual void Draw(float dt) = 0;
         virtual void ExecuteActions() = 0;
+        virtual bool isPaused() = 0;
 
         // virtual functions, could be overwritten by inheretince
         virtual void Pause() {}
         virtual void Resume() {}
+        
     };
 }
 

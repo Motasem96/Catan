@@ -9,12 +9,14 @@
 #include <memory>
 #include <queue>
 #include "../FunAction.hpp"
+#include <mutex>
+#include "../../Game/GameSyncData.hpp"
 
 namespace Catan {
-    typedef std::unique_ptr<FunAction> ActionRef;
+    typedef std::shared_ptr<FunAction> ActionRef;
     class ActionMachine {
     public:
-        ActionMachine();
+        ActionMachine(std::shared_ptr<GameSyncData> syncData);
         ~ActionMachine() {};
 
         bool empty();
@@ -23,13 +25,13 @@ namespace Catan {
         void RemoveAction();
         void ProcessActionChanges();
         void printSize();
-
+        void deleteAllActions();
         ActionRef &GetActiveAction();
 
     private:
         std::queue<ActionRef> _actions;
         ActionRef _newAction;
-
+        std::shared_ptr<GameSyncData> _syncData;
         bool _isRemoving = false;
         bool _isAdding = false;
         bool _isReplacing;

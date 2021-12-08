@@ -35,6 +35,12 @@ namespace Catan {
         void update(const sf::Vector2f mousPos);
 
         const bool isPressed() const;
+
+        void setText(std::string text);
+
+        std::string getText();
+
+        sf::Vector2f getPos();
     };
 }
 
